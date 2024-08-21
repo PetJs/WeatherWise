@@ -57,7 +57,7 @@ function CitySearchBar() {
   const fetchCitySuggesstions = async (query: string) => {
     try {
       const response = await axios.get(
-        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities`,
+        'https://wft-geo-db.p.rapidapi.com/v1/geo/cities',
         {
           params: {
             namePrefix: query, //Query parameter for city suggestions

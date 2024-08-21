@@ -1,6 +1,7 @@
 import SidebarItem from './SidebarItem';
 import { SidebarItemContext } from './SidebarContext';
 
+
 const Sidebar = () => {
   const sidebarItems = [
     { icon: 'cloud', label: 'Weather', link: '/weather' },

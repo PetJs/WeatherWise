@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useWeatherWiseAppContext from "../useWeatherWiseAppContext";
-import axios from "axios";
 
 function CurrentWeather(){
     const {selectedCity} = useWeatherWiseAppContext();
@@ -13,30 +12,41 @@ function CurrentWeather(){
         chanceOfRain: 0,
         description:"Sunny",
     });
-    const fetchWeatherData = async(city: string) =>{
-        try{
+
+    const fetchWeatherData = async (city: string) => {
+        try {
+            if (!city || city === "Your City") {
+                console.error("Invalid city name provided.");
+                return; 
+            }
+
+            console.log(`Fetching weather data for city: ${city}`);
+
             const apiKey = 'V4VPJQ545QWEHBWZM6X6CBHF3';
-            const response = await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services
-          /timeline/${city}?unitGroup=us&key=${apiKey}`);
-          const data = response.data;
-          console.log(data);
+            const response = await fetch(
+                `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(city)}?unitGroup=us&key=${apiKey}`
+            );
 
-          setWeatherData({
-            temperature: data.currentConditions.temp,
-            chanceOfRain: data.currentConditions.precip,
-            description: data.currentConditions.conditions,
-        });
-        }catch(error){
-            console.error("Error fetching weather data: ", error)
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            setWeatherData({
+                temperature: data.currentConditions.temp,
+                chanceOfRain: data.currentConditions.precip,
+                description: data.currentConditions.conditions,
+            });
+        } catch (error) {
+            console.error("Error fetching weather data: ", error);
         }
-    }
-
+    };
     useEffect(() => {
-        if(selectedCity){
-            fetchWeatherData(selectedCity)
+        if (selectedCity) {
+            fetchWeatherData(selectedCity);
         }
     }, [selectedCity]);
-
     return(
         <div className="current-weather">
             <h1>{selectedCity}</h1>

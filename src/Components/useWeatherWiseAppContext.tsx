@@ -17,7 +17,6 @@ function useWeatherWiseAppContext() {
   if (!context) {
     throw new Error("useWeatherAppContext must be used within an AppProvider");
   }
-
   return context;
 };
 
