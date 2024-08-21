@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios"; //import axios to make API calls
 //Axios is better than fetch coz it automatically converts the response to JSON.
 //Fetch only rejects the promise on network errors but axios handle other HTTP status codes like 404 or 500
+import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
 
 //Since city in the mapping function is having issues since it is of type any we have to create an interface called City and make it of type City
 interface City {
@@ -27,17 +28,16 @@ interface Suggestion {
   country: string;
 }
 
-interface CitySearchBarProps{
-  setSelectedCity : (city: string) => void
-}
+
 
 //Pasiing setSelectedCity as a prop to update selected city in Weather Page Main Content(parent component). With this the parent component can fetch and display weather data or the selected city
 
-function CitySearchBar({setSelectedCity} : CitySearchBarProps) {
+function CitySearchBar() {
   const [city, setCity] = useState<string>(""); //the useState Returns string array
   //I am using use state to declare a state variable 'city' and a function to update it 'setCity'
   //It is initialised to empty string coz when the component first renders city is empty string until user types in something
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]); //State for filtered suggesstions
+  const {setSelectedCity} = useWeatherWiseAppContext(); //Use the custom hook to get the context
 
   //Function called whenever the user types something to the input field
   const handleInputChange = async (
@@ -105,7 +105,7 @@ function CitySearchBar({setSelectedCity} : CitySearchBarProps) {
               key={index}
               onClick={() => { //Triggered when a list item is clicked
                 setCity(suggestion.city); 
-                setSelectedCity(suggestion.city); //Updates selectedcity to the city that was clicked
+                //setSelectedCity(suggestion.city); //Updates selectedcity to the city that was clicked
                 setSuggestions([]); //Clears suggestions list
               }}
             >

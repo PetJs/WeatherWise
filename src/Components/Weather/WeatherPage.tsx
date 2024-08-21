@@ -1,4 +1,4 @@
-import Sidebar from './Sidebar'
+import Sidebar from '../Sidebar/Sidebar'
 import WeatherPageMainContent from './WeatherPageMainContent'
 //import DailyForecast from './7DayForecast'
 
