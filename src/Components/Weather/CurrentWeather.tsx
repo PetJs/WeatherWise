@@ -50,7 +50,7 @@ function CurrentWeather(){
     return(
         <div className="current-weather">
             <h1>{selectedCity}</h1>
-            <p>{weatherData.temperature}</p>
+            <p> Temp : {weatherData.temperature}°C</p>
             <p>Chance of Rain : {weatherData.chanceOfRain}</p>
             <p>{weatherData.description}</p>
         </div>
