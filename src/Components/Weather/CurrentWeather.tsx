@@ -13,10 +13,12 @@ function CurrentWeather(){
         chanceOfRain: 0,
         description:"Sunny",
     });
-    
 
-
-
+    return (
+        <>
+            <h1>Current Weather in {selectedCity}</h1>
+        </>
+    )
 
 }
 
