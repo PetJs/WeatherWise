@@ -1,12 +1,27 @@
 import './App.css'
 import WeatherPage from './scenes/dashboard/Weather/WeatherPage'
+
 import WeatherWiseAppProvider from './scenes/dashboard/Weather/WeatherWiseAppProvider'
+import { ColorModeContext, useMode } from './theme'
+import { CssBaseline, ThemeProvider } from '@mui/material';
+
+
+
+
+
+
 function App() {
+  const  [theme, colorMode] = useMode()
 
   return (
-    <WeatherWiseAppProvider>
-      <WeatherPage/>
-    </WeatherWiseAppProvider>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <WeatherWiseAppProvider>
+          <WeatherPage/>
+        </WeatherWiseAppProvider>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
       
   )
 }
