@@ -39,7 +39,7 @@ function CitySearchBar() {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]); //State for filtered suggesstions
   const [selectedIndex, setSelectedIndex] =useState(-1)
   const {setSelectedCity, fetchWeatherData} = useWeatherWiseAppContext(); //Use the custom hook to get the context
-
+  
   
   //FUNCTION TO FETCH CITY SUGGESTIONS BASED ON USER INPUT
   const fetchCitySuggesstions = async (query: string) => {

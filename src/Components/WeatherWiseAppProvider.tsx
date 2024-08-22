@@ -2,11 +2,18 @@ import { createContext, useState, useCallback, ReactNode } from "react";
 //createContext is a function used to create a new context that will hold the shared data that can be accessed by different components without having to pass  props down manually at every level
 //ReactNode is a type that represents anything that can be rendered in React. represents any React Child. It's used to type the children prop to allow for any valid React content to be passed.
 
+
+
 interface WeatherData {
   temperature: number;
   chanceOfRain: number;
   description: string;
   location: string;
+  dailyForecast: Array<{ 
+    datetime: string;
+    conditions: string;
+    temp: number;
+  }>;
 }
 
 interface WeatherWiseAppContextInterface {
@@ -49,37 +56,49 @@ function WeatherWiseAppProvider({ children }: WeatherWiseAppProviderProps) {
     temperature: 0,
     chanceOfRain: 0,
     description: "Sunny",
-    location: "Your City"
+    location: "Your City",
+    dailyForecast: [],
   });
 
  //useCallback makes sure that fetchWeather data will ony chnage if its dependecnies change( in this case dependency array is empty), so that useEffect will not rerun unnecessarily
-    const fetchWeatherData= useCallback( async(city: string) => {
-        try{
-            if(!city){
-                console.log("Invalid city name provided.");
-                return;
-            }
-            const response = await fetch(`${api.base}${encodeURIComponent(city)}?unitGroup=metric&key=${api.key}`);
+ const fetchWeatherData = useCallback(async (city: string) => {
+  try {
+    if (!city.trim()) {
+      console.log("No city entered. Please enter a city name.");
+      return; // Exit the function early
+    }
+    
+    const response = await fetch(`${api.base}${encodeURIComponent(city)}?unitGroup=metric&key=${api.key}`);
+    
+    if (!response.ok) {
+      if (response.status === 400) {
+        console.log("Invalid city name provided.");
+      } else if (response.status === 404) {
+        console.log("City not found.");
+      } else {
+        console.log(`Response was not ok: ${response.status}`);
+      }
+      return; // Exit the function early
+    }
+    
+    const data = await response.json();
+    
+    setWeatherData({
+      temperature: data.currentConditions.temp,
+      chanceOfRain: data.currentConditions.precipprob,
+      description: data.currentConditions.conditions,
+      location: data.resolvedAddress,
+      dailyForecast: data.days.slice(0, 7),
+    });
+    console.log(data);
+  } catch (error) {
+    console.error("Error fetching weather data: ", error);
+  }
+}, [api.base, api.key]); // Dependency array
+   
 
 
-            if(!response.ok){ //If HTTP response status code indicates success
-                throw new Error(`Response was not ok: ${response.status}`)
-            }
-            const data = await response.json();
-            
-            
 
-            setWeatherData({
-                temperature: data.currentConditions.temp,
-                chanceOfRain: data.currentConditions.precipprob, 
-                description: data.currentConditions.conditions,
-                location: data.resolvedAddress
-            });
-            console.log(data);
-        }catch(error){
-            console.error("Error fetching weather data: ", error)
-        }
-    }, [api.base, api.key]);
   return (
     <WeatherWiseAppContext.Provider
       value={{ //contains current values of states and their setter functions
