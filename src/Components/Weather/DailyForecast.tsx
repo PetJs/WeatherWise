@@ -3,7 +3,7 @@ const response = await fetch(
     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(city)}?unitGroup=us&key=${apiKey}`
 ); */
 
-import useWeatherWiseAppContext from "../useWeatherWiseAppContext";
+import useWeatherWiseAppContext from "../../scenes/dashboard/Weather/useWeatherWiseAppContext";
 
 interface DailyForecast{
     day: string;
@@ -38,5 +38,7 @@ function DailyForecast(){
         </div>
     );
 }
-export default DailyForecast
+
+export default DailyForecast;
+
 

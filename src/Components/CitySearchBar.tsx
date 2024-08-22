@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios"; //import axios to make API calls
 //Axios is better than fetch coz it automatically converts the response to JSON.
 //Fetch only rejects the promise on network errors but axios handle other HTTP status codes like 404 or 500
-import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
+import useWeatherWiseAppContext from "../scenes/dashboard/Weather/useWeatherWiseAppContext";
 
 //Since city in the mapping function is having issues since it is of type any we have to create an interface called City and make it of type City
 interface City {

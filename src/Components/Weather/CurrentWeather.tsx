@@ -1,5 +1,5 @@
 import { useEffect, useState} from "react";
-import useWeatherWiseAppContext from "../useWeatherWiseAppContext";
+import useWeatherWiseAppContext from "../../scenes/dashboard/Weather/useWeatherWiseAppContext";
 
 function CurrentWeather(){
     const {selectedCity} = useWeatherWiseAppContext();

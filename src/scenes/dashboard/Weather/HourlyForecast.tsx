@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useWeatherWiseAppContext from "../../../Components/useWeatherWiseAppContext";
+import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
 
 interface HourlyForecast {
     time: string;
