@@ -14,6 +14,7 @@ interface WeatherData {
     conditions: string;
     temp: number;
   }>;
+  timezoneOffset: number;
 }
 
 interface WeatherWiseAppContextInterface {
@@ -27,7 +28,23 @@ interface WeatherWiseAppContextInterface {
   setTextColor: (color: string) => void;
   weatherData: WeatherData
   fetchWeatherData: (city: string) => Promise<void>;
-  setWeatherData: (weatherData: WeatherData) => void
+  setWeatherData: (weatherData: WeatherData) => void;
+  feelsLike: number;
+  setFeelsLike: (feelsLike: number) => void;
+  uvIndex: number;
+  setUvIndex: (uvIndex: number) => void;
+  windSpeed: number;
+  setWindSpeed: (windSpeed: number) => void;
+  humidity: number;
+  setHumidity: (humidity: number) => void;
+  visibility: number;
+  setVisibility: (visibility: number) => void;
+  pressure: number;
+  setPressure: (pressure: number) => void;
+  chanceOfRain: number;
+  setChanceOfRain: (chanceOfRain: number) => void;
+  sunset: string;
+  setSunset: (sunset: string) => void; 
 }
 
 interface WeatherWiseAppProviderProps {
@@ -58,7 +75,17 @@ function WeatherWiseAppProvider({ children }: WeatherWiseAppProviderProps) {
     description: "Sunny",
     location: "Your City",
     dailyForecast: [],
+    timezoneOffset: 0, //rep difference in seconds from UTC
   });
+  // Air Conditions States
+  const [feelsLike, setFeelsLike] = useState<number>(0);
+  const [uvIndex, setUvIndex] = useState<number>(0);
+  const [windSpeed, setWindSpeed] = useState<number>(0);
+  const [humidity, setHumidity] = useState<number>(0);
+  const [visibility, setVisibility] = useState<number>(0);
+  const [pressure, setPressure] = useState<number>(0);
+  const [chanceOfRain, setChanceOfRain] = useState<number>(0);
+  const [sunset, setSunset] = useState<string>('20:58');
 
  //useCallback makes sure that fetchWeather data will ony chnage if its dependecnies change( in this case dependency array is empty), so that useEffect will not rerun unnecessarily
  const fetchWeatherData = useCallback(async (city: string) => {
@@ -89,7 +116,17 @@ function WeatherWiseAppProvider({ children }: WeatherWiseAppProviderProps) {
       description: data.currentConditions.conditions,
       location: data.resolvedAddress,
       dailyForecast: data.days.slice(0, 7),
+      timezoneOffset: data.tzoffset || 0
     });
+    // Update air conditions
+    setFeelsLike(data.currentConditions.feelsLike || 0);
+    setUvIndex(data.currentConditions.uvIndex || 0);
+    setWindSpeed(data.currentConditions.windspeed || 0);
+    setHumidity(data.currentConditions.humidity || 0);
+    setVisibility(data.currentConditions.visibility || 0);
+    setPressure(data.currentConditions.pressure || 0);
+    setChanceOfRain(data.currentConditions.precipprob || 0);
+    setSunset(data.currentConditions.sunset || 'N/A');
     console.log(data);
   } catch (error) {
     console.error("Error fetching weather data: ", error);
@@ -112,7 +149,23 @@ function WeatherWiseAppProvider({ children }: WeatherWiseAppProviderProps) {
         setTextColor,
         weatherData,
         setWeatherData,
-        fetchWeatherData
+        fetchWeatherData,
+        feelsLike,
+        uvIndex,
+        windSpeed,
+        humidity,
+        visibility,
+        pressure,
+        chanceOfRain,
+        sunset,
+        setFeelsLike,
+        setUvIndex,
+        setWindSpeed,
+        setHumidity,
+        setVisibility,
+        setPressure,
+        setChanceOfRain,
+        setSunset,
       }}
     >
       {children} {/*  Whatever is wrapped inside this App provider in JSX will have access to provider context */}

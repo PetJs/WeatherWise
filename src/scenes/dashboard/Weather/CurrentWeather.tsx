@@ -21,12 +21,15 @@ function CurrentWeather() {
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
-            setCurrentDateTime(now.toLocaleString());
+            const localTime = new Date(now.getTime() + weatherData.timezoneOffset * 3600000); // Convert timezoneOffset (in hours)  to milliseconds
+            setCurrentDateTime(localTime.toLocaleString());
         };
+    
         updateDateTime();
-        const intervalId = setInterval(updateDateTime, 1000); // Update time every second
+        const intervalId = setInterval(updateDateTime, 1000); //Update time every second
         return () => clearInterval(intervalId);
-    }, []);
+    }, [weatherData.timezoneOffset]);
+    
 
     return (
         <div className="current-weather">
