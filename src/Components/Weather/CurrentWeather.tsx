@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import useWeatherWiseAppContext from "../useWeatherWiseAppContext";
 
 function CurrentWeather(){
@@ -7,58 +7,41 @@ function CurrentWeather(){
     Same as:  const context = useWeatherWiseAppContext();
     const selectedCity = context.selectedCity; */
 
-    const [weatherData, setWeatherData] = useState({
-        temperature: 0,
-        chanceOfRain: 0,
-        description:"Sunny",
-    });
+    const { weatherData, fetchWeatherData } = useWeatherWiseAppContext();
+    const [currentDateTime, setCurrentDateTime] = useState("")
 
-    const fetchWeatherData = async (city: string) => {
-        try {
-            if (!city || city === "Your City") {
-                console.error("Invalid city name provided.");
-                return; 
-            }
+    
 
-            console.log(`Fetching weather data for city: ${city}`);
+    
+    
 
-            const apiKey = 'V4VPJQ545QWEHBWZM6X6CBHF3';
-            const response = await fetch(
-                `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(city)}?unitGroup=us&key=${apiKey}`
-            );
-
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            setWeatherData({
-                temperature: data.currentConditions.temp,
-                chanceOfRain: data.currentConditions.precip,
-                description: data.currentConditions.conditions,
-            });
-        } catch (error) {
-            console.error("Error fetching weather data: ", error);
-        }
-    };
     useEffect(() => {
-        if (selectedCity) {
-            fetchWeatherData(selectedCity);
+        if (selectedCity){
+            fetchWeatherData(selectedCity)
         }
-    }, [selectedCity]);
+    }, [fetchWeatherData,selectedCity]);
+
+    useEffect(() =>{
+        const updateDateTime = () => {
+            const now = new Date();
+            setCurrentDateTime(now.toLocaleString())
+        };
+        updateDateTime();
+        const intervalId = setInterval(updateDateTime, 1000); //schedules Update time  to run every second
+        return () => clearInterval(intervalId);
+        /* If you navigate away from this page or remove the CurrentWeather component from the DOM (for example, by navigating to a different route or unmounting the component for some reason), the component will unmount.
+When the component unmounts, the cleanup function (clearInterval(intervalId)) is executed. This stops the interval, meaning the updateDateTime function will no longer run every second.*/
+    }, []);
+
     return(
         <div className="current-weather">
-            <h1>{selectedCity}</h1>
-            <p> Temp : {weatherData.temperature}°C</p>
-            <p>Chance of Rain : {weatherData.chanceOfRain}</p>
+            <h1>{weatherData.location}</h1>
+            <p>{currentDateTime}</p>
+            <p>Temperature: {weatherData.temperature}</p>
+            <p>Chance of rain : {weatherData.chanceOfRain}</p>
             <p>{weatherData.description}</p>
         </div>
-    )
-
-
-
-
+    );
 }
 
 export default CurrentWeather
