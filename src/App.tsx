@@ -1,5 +1,5 @@
 import './App.css'
-import WeatherPage from './Components/Weather/WeatherPage'
+import WeatherPage from './scenes/dashboard/Weather/WeatherPage'
 import WeatherWiseAppProvider from './Components/WeatherWiseAppProvider'
 function App() {
 
@@ -8,7 +8,6 @@ function App() {
       <WeatherPage/>
     </WeatherWiseAppProvider>
       
-
   )
 }
 

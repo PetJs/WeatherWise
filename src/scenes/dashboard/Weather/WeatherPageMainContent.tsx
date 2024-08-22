@@ -1,5 +1,5 @@
-
-import CitySearchBar from '../CitySearchBar';
+import '../../App.css';
+import CitySearchBar from '../../../Components/CitySearchBar';
 import CurrentWeather from './CurrentWeather'; 
 /* import HourlyForecast from './HourlyForecast';
 import AirConditions from './AirConditions';
@@ -15,8 +15,11 @@ function MainContent() {
         //Hourly Forecast
         //Air conditions
         //Daily Forecast to the right
-        <div className="main-content">
-            <CitySearchBar />
+        <div className="app">
+            <div className='content'>
+                <CitySearchBar />
+            </div>
+
             <div className="weather-container">
                 <div className="left-column">
                     <CurrentWeather />
