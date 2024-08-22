@@ -1,4 +1,4 @@
-import '../../App.css';
+import '/src/App.css';
 import CitySearchBar from '../../../Components/CitySearchBar';
 import CurrentWeather from './CurrentWeather'; 
 /* import HourlyForecast from './HourlyForecast';
