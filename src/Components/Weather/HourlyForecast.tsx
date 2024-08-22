@@ -8,6 +8,7 @@ interface HourlyForecast {
     icon: string;
 }
 
+
 interface ApiHourlyData {
     datetime: string;
     temp: number;

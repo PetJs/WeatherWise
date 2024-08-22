@@ -1,6 +1,6 @@
 //CITY BAR COMPONENT TO HANDLE SEARCHING FOR CITIES
 
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios"; //import axios to make API calls
 //Axios is better than fetch coz it automatically converts the response to JSON.
 //Fetch only rejects the promise on network errors but axios handle other HTTP status codes like 404 or 500
@@ -37,22 +37,10 @@ function CitySearchBar() {
   //I am using use state to declare a state variable 'city' and a function to update it 'setCity'
   //It is initialised to empty string coz when the component first renders city is empty string until user types in something
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]); //State for filtered suggesstions
-  const {setSelectedCity} = useWeatherWiseAppContext(); //Use the custom hook to get the context
+  const [selectedIndex, setSelectedIndex] =useState(-1)
+  const {setSelectedCity, fetchWeatherData} = useWeatherWiseAppContext(); //Use the custom hook to get the context
 
-  //Function called whenever the user types something to the input field
-  const handleInputChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = event.target.value; //Value typed in the input field
-    setCity(value); //Sets city to current value of the input field
-
-    if (value) {
-      await fetchCitySuggesstions(value); //Pauses the function until fetchCitySuggestions completes
-    } else {
-      setSuggestions([]); //If input is empty, set Suggestions to an empty array
-    }
-  };
-
+  
   //FUNCTION TO FETCH CITY SUGGESTIONS BASED ON USER INPUT
   const fetchCitySuggesstions = async (query: string) => {
     try {
@@ -80,11 +68,53 @@ function CitySearchBar() {
     }
   };
 
-  const handleSearch = () => {
-    if(city){ //If there's a city name in the input when search button is clicked
-      setSelectedCity(city)
+  //Function called whenever the user types something to the input field
+  const handleInputChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = event.target.value; //Value typed in the input field
+    setCity(value); //Sets city to current value of the input field
+
+    if (value) {
+      await fetchCitySuggesstions(value); //Pauses the function until fetchCitySuggestions completes
+    } else {
+      setSuggestions([]); //If input is empty, set Suggestions to an empty array
+    }
+    setSelectedIndex(-1)
+  };; //reset selected index when typing meaning no suggestion is selected by default
+
+  //HANDLE KEY DOWN
+  const handleKeyDown = async (event :  React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "ArrowDown"){
+      setSelectedIndex((prevIndex) => 
+        Math.min(prevIndex+1, suggestions.length - 1) //to prevent index going out of bounds
+      );
+    }
+    else if(event.key === "Enter"  && selectedIndex >= 0){
+      const selectedSuggestion = suggestions[selectedIndex];
+      handleSuggestionSelect(selectedSuggestion);
+    }
+    else if(event.key === "Enter" && city){
+      setSelectedCity(city);
+      await fetchWeatherData(city);
       setSuggestions([]);
     }
+  }
+
+  //HANDLE SEARCH
+  const handleSearch =async () => {
+    if(city){ //If there's a city name in the input when search button is clicked
+      setSelectedCity(city);
+      await fetchWeatherData(city)
+      setSuggestions([]);
+    }
+  }
+
+  const handleSuggestionSelect = (suggestion: Suggestion) => {
+    const fullLocation = `${suggestion.city}, ${suggestion.country}`;
+    setCity(fullLocation);
+    setSelectedCity(fullLocation);
+    setSuggestions([])
   }
 
   return (
@@ -94,6 +124,7 @@ function CitySearchBar() {
         value={city} //tying or binding value of input field to city state
         placeholder="Search for cities...."
         onChange={handleInputChange} //When input value changes trigger the handleInputChange function
+        onKeyDown={handleKeyDown}
       />
       <button onClick={handleSearch}>
         <i className="fas fa-search"></i>
@@ -103,11 +134,9 @@ function CitySearchBar() {
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
-              onClick={() => { //Triggered when a list item is clicked
-                setCity(suggestion.city); 
-                //setSelectedCity(suggestion.city); //Updates selectedcity to the city that was clicked
-                setSuggestions([]); //Clears suggestions list
-              }}
+              className={index === selectedIndex ? "selected" : ""}
+              onClick = {() => handleSuggestionSelect(suggestion)
+              }
             >
               {suggestion.city}, {suggestion.country}
             </li>
