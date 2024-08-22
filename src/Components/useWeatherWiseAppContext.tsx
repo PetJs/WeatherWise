@@ -6,6 +6,7 @@ import { WeatherWiseAppContext } from "./WeatherWiseAppProvider";
 
 
 /*CREATING A CUSTOM HOOK SO WE CAN USE THE CONTEXT CREATED IN OTHER COMPONENTS
+
 If WeatherWiseAppContext is not accessed i.e if useWeatherWiseAppContext is not used within an AppProvider
 If the component calling useWeatherWiseAppContext is within an AppProvider, useContext(WeatherWiseAppContext) returns  the value provided by the nearest AppContext.Provider which is an object containing selectedCity, setSelectedCity etc
 If the component is not within an AppProvider, useContext(WeatherWiseAppContext) returns null
