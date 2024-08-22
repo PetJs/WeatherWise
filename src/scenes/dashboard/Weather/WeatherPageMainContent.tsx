@@ -3,7 +3,7 @@ import CitySearchBar from './CitySearchBar';
 import CurrentWeather from './CurrentWeather'; 
 import HourlyForecast from './HourlyForecast';
 //import AirConditions from './AirConditions';
-import DailyForecast from './DailyForecast'; 
+// import DailyForecast from './DailyForecast'; 
 
 
 function MainContent() {
@@ -27,7 +27,7 @@ function MainContent() {
                         {/* <AirConditions /> */}
                 </div>
                 <div className="right-column">
-                    <DailyForecast/>
+                    {/* <DailyForecast/> */}
                 </div>
             </div>
         </div>
