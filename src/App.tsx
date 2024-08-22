@@ -7,10 +7,7 @@ function App() {
     <WeatherWiseAppProvider>
       <WeatherPage/>
     </WeatherWiseAppProvider>
-<<<<<<< HEAD
       
-=======
->>>>>>> ea9ab14ddcd18233943d0c0b6b1cfb3db338de44
   )
 }
 

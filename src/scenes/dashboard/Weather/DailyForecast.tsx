@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useWeatherWiseAppContext from "../useWeatherWiseAppContext";
+import useWeatherWiseAppContext from "../../../Components/useWeatherWiseAppContext";
 
 interface DailyForecast {
     day: string;
