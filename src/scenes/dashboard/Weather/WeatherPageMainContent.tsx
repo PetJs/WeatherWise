@@ -1,9 +1,9 @@
 import '/src/App.css';
 import CitySearchBar from '../../../Components/CitySearchBar';
 import CurrentWeather from './CurrentWeather'; 
-/* import HourlyForecast from './HourlyForecast';
-import AirConditions from './AirConditions';
-import DailyForecast from './DailyForecast'; */
+import HourlyForecast from './HourlyForecast';
+//import AirConditions from './AirConditions';
+import DailyForecast from './DailyForecast'; 
 
 
 function MainContent() {
@@ -23,11 +23,11 @@ function MainContent() {
             <div className="weather-container">
                 <div className="left-column">
                     <CurrentWeather />
-                    {/* <HourlyForecast />
-                    <AirConditions /> */}
+                    <HourlyForecast />
+                        {/* <AirConditions /> */}
                 </div>
                 <div className="right-column">
-                    {/* <DailyForecast /> */}
+                    <DailyForecast/>
                 </div>
             </div>
         </div>
