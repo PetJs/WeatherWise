@@ -1,52 +1,40 @@
-import './App.css'
-import WeatherPage from './scenes/dashboard/Weather/WeatherPageMainContent'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Sidebar from './scenes/mainPage/Sidebar/Sidebar';
-//import citiesPage
-//import Map page
-import MapPage from './scenes/MapPage'
-//import settings Page
-//import Account Page
-
-import WeatherWiseAppProvider from './scenes/dashboard/Weather/WeatherWiseAppProvider'
-import { ColorModeContext, useMode } from './theme'
+import './App.css';
+import WeatherPage from './scenes/dashboard/Weather/WeatherPage';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import WeatherWiseAppProvider from './scenes/dashboard/Weather/WeatherWiseAppProvider';
+import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-
-
-
-
-
+import CitiesPage from './scenes/dashboard/Weather/CitiesPage';
+import Sidebarr from './scenes/mainPage/Sidebar/Sidebarr';
+import MapPage from './scenes/dashboard/Weather/MapPage';
 
 
 function App() {
-  const  [theme, colorMode] = useMode()
+  const [theme, colorMode] = useMode();
 
   return (
-    
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <div className="app">
-            <Sidebar />
-            <main className="content">
-              <WeatherWiseAppProvider>
+    <BrowserRouter>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <WeatherWiseAppProvider>
+            <div style={{ display: 'flex' }}>
+              <Sidebarr />
+              <div style={{ flexGrow: 1 }}>
                 <Routes>
+                  <Route path="/" element={<Navigate to="/weather" />} />
                   <Route path="/weather" element={<WeatherPage />} />
+                  <Route path="/cities" element={<CitiesPage />} />
                   <Route path="/map" element={<MapPage />} />
-                  {/* <Route path="/cities" element={<CitiesPage />} />
-                  
-                  <Route path="/settings" element={<SettingsPage />} />
-                  <Route path="/account" element={<AccountPage />} /> */}
+                  {/* Add other routes here as needed */}
                 </Routes>
-              </WeatherWiseAppProvider>
-            </main>
-          </div>
-        </Router>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-      
-  )
+              </div>
+            </div>
+          </WeatherWiseAppProvider>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

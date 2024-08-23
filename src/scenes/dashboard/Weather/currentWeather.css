@@ -1,0 +1,49 @@
+/* CurrentWeather.css */
+
+.current-weather {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.current-weather h1 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.current-time {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.weather-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.weather-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #555;
+}
+
+
+.weather-stats p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.temperature, .chance-of-rain {
+    font-weight: bold;
+}
