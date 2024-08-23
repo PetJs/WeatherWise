@@ -1,0 +1,31 @@
+.daily-forecast {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    width: 250px; /* Ensure this matches the sidebar width */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: for better visual separation */
+}
+
+.daily-forecast h2 {
+    text-align: center;
+    color: #333;
+}
+
+.each-day-forecast {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    font-size: 16px; /* Adjust font size as needed */
+}
+
+.each-day-forecast p {
+    margin: 0 10px;
+    color: #555;
+}
+
+.icon {
+    font-size: 24px; /* Increase icon size as needed */
+    color: #555;
+    margin-right: 10px; /* Space between icon and temperature */
+}

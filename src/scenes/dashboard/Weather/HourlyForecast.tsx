@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun, faCloudSun, faCloud, faCloudRain, faSnowflake, faThunderstorm, faSmog } from '@fortawesome/free-solid-svg-icons';
+import './HourlyForecast.css';  // Assuming you have a separate CSS file for styles
 
 interface HourlyForecast {
     time: string;
     temperature: number;
     description: string;
-    icon: string;
+    icon: JSX.Element;
 }
 
 interface ApiHourlyData {
@@ -14,6 +17,19 @@ interface ApiHourlyData {
     conditions: string;
     icon: string;
 }
+
+// Define a mapping from weather conditions to Font Awesome icons
+const weatherIconMap: { [key: string]: JSX.Element } = {
+    "Clear": <FontAwesomeIcon icon={faSun} />,
+    "Partly Cloudy": <FontAwesomeIcon icon={faCloudSun} />,
+    "Cloudy": <FontAwesomeIcon icon={faCloud} />,
+    "Rain": <FontAwesomeIcon icon={faCloudRain} />,
+    "Snow": <FontAwesomeIcon icon={faSnowflake} />,
+    "Thunderstorm": <FontAwesomeIcon icon={faThunderstorm} />,
+    "Drizzle": <FontAwesomeIcon icon={faCloudRain} />,
+    "Fog": <FontAwesomeIcon icon={faSmog} />,
+    // Add more mappings as needed
+};
 
 function HourlyForecast() {
     const { selectedCity } = useWeatherWiseAppContext();
@@ -43,11 +59,10 @@ function HourlyForecast() {
             const hourlyWeatherData = (data.days?.[0]?.hours || [])
                 .filter((hour: ApiHourlyData, index: number) => index % 3 === 0)
                 .map((hour: ApiHourlyData) => {
-                     // Log the original datetime string to inspect it
+                    // Log the original datetime string to inspect it
                     console.log('Original datetime:', hour.datetime);
 
                     let date = new Date(hour.datetime);
-
 
                     // Check if the date is invalid
                     if (isNaN(date.getTime())) {
@@ -57,17 +72,19 @@ function HourlyForecast() {
                         console.log('Reformatted datetime:', `${currentDate}T${hour.datetime}`);
                     }
 
-
                     // Format the time
                     const time = !isNaN(date.getTime())
                         ? date.toLocaleTimeString('en-UK', { hour: '2-digit', minute: '2-digit' })
-                        : 'Invalid Date';        
-                        
+                        : 'Invalid Date';
+
+                    // Map condition to Font Awesome icon
+                    const icon = weatherIconMap[hour.conditions] || <FontAwesomeIcon icon={faSun} />; // Default icon
+
                     return {
                         time,
                         temperature: hour.temp,
                         description: hour.conditions,
-                        icon: 'placeholder-icon-url' // Map to the actual icon URL or logic
+                        icon,
                     };
                 });
 
@@ -97,13 +114,13 @@ function HourlyForecast() {
             {error ? (
                 <p>{error}</p>
             ) : (
-                <ul>
+                <ul className="forecast-list">
                     {hourlyForecastData.length > 0 ? (
                         hourlyForecastData.map((hour, index: number) => (
-                            <li key={index}>
+                            <li key={index} className="forecast-item">
                                 <p>{hour.time}</p>
+                                {hour.icon}
                                 <p>{hour.temperature}°C</p>
-                                <img src={hour.icon || 'placeholder-icon-url'} alt={hour.description} />
                                 <p>{hour.description}</p>
                             </li>
                         ))
