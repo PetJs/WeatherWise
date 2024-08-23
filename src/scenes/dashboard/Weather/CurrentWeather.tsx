@@ -1,29 +1,21 @@
-/* import { useEffect, useState} from "react";
-import useWeatherWiseAppContext from '../../../Components/useWeatherWiseAppContext'; */
 import { useEffect, useState } from "react";
 import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faSun, faCloud, faCloudShowersHeavy, faSnowflake, faBolt, faSmog, faCloudRain } from '@fortawesome/free-solid-svg-icons';
 
 
-function CurrentWeather(){
-    const {selectedCity} = useWeatherWiseAppContext();
-    /*selectedCity is in bracket coz the custom use context hook returns an object with different properties but we are destructuring it to extract only setSelectedCity
-    Same as:  const context = useWeatherWiseAppContext();
-    const selectedCity = context.selectedCity; */
+type WeatherCondition = 'Clear' | 'Cloudy' | 'Rain' | 'Snow' | 'Thunderstorm' | 'Fog' | 'Drizzle';
 
-    const { weatherData, fetchWeatherData } = useWeatherWiseAppContext();
-    const [currentDateTime, setCurrentDateTime] = useState("")
-
-    
-
-    
-    
-
-    useEffect(() => {
-        if (selectedCity){
-            fetchWeatherData(selectedCity)
-        }
-    }, [fetchWeatherData,selectedCity]);
-
+const conditionIcons: { [key in WeatherCondition]?: IconDefinition } = {
+    'Clear': faSun,
+    'Cloudy': faCloud,
+    'Rain': faCloudShowersHeavy,
+    'Snow': faSnowflake,
+    'Thunderstorm': faBolt,
+    'Fog': faSmog,
+    'Drizzle': faCloudRain,
+};
 
 function CurrentWeather() {
     const { selectedCity, weatherData, fetchWeatherData } = useWeatherWiseAppContext();
@@ -45,35 +37,19 @@ function CurrentWeather() {
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
-            const localTime = new Date(now.getTime() + weatherData.timezoneOffset * 3600000); // Convert timezoneOffset (in hours)  to milliseconds
+            const localTime = new Date(now.getTime() + (weatherData.timezoneOffset || 0) * 3600000);
             setCurrentDateTime(localTime.toLocaleString());
         };
-    
+
         updateDateTime();
-        const intervalId = setInterval(updateDateTime, 1000); //Update time every second
+        const intervalId = setInterval(updateDateTime, 1000);
         return () => clearInterval(intervalId);
     }, [weatherData.timezoneOffset]);
-    
 
-    useEffect(() =>{
-        const updateDateTime = () => {
-            const now = new Date();
-            setCurrentDateTime(now.toLocaleString())
-        };
-        updateDateTime();
-        const intervalId = setInterval(updateDateTime, 1000); //schedules Update time  to run every second
-        return () => clearInterval(intervalId);
-        /* If you navigate away from this page or remove the CurrentWeather component from the DOM (for example, by navigating to a different route or unmounting the component for some reason), the component will unmount.
-When the component unmounts, the cleanup function (clearInterval(intervalId)) is executed. This stops the interval, meaning the updateDateTime function will no longer run every second.*/
-    }, []);
-
-    return(
+    return (
         <div className="current-weather">
             <h1>{weatherData.location}</h1>
-            <p>{currentDateTime}</p>
-            <p>Temperature: {weatherData.temperature}</p>
-            <p>Chance of rain : {weatherData.chanceOfRain}</p>
-            <p>{weatherData.description}</p>
+            <p className="current-time">{currentDateTime}</p>
             {loading ? (
                 <p>Loading...</p>
             ) : (
@@ -81,17 +57,26 @@ When the component unmounts, the cleanup function (clearInterval(intervalId)) is
                     {weatherData.location === "Your City" && weatherData.temperature === 0 ? (
                         <p>Please enter a city to get the current weather.</p>
                     ) : (
-                        <>
-                            <p>Temperature: {weatherData.temperature}°C</p>
-                            <p>Chance of Rain: {weatherData.chanceOfRain}%</p>
-                            <p>{weatherData.description}</p>
-                        </>
+                        <div className="weather-details">
+                            <div className="weather-info">
+                                <FontAwesomeIcon
+                                    icon={conditionIcons[weatherData.description as WeatherCondition] || faCloud}
+                                    className="weather-icon"
+                                />
+                                <div className="weather-description">
+                                    <p>{weatherData.description}</p>
+                                </div>
+                            </div>
+                            {/* <div className="weather-stats">
+                                <p className="temperature">Temperature: {weatherData.temperature}°C</p>
+                                <p className="chance-of-rain">Chance of Rain: {weatherData.chanceOfRain}%</p>
+                            </div> */}
+                        </div>
                     )}
                 </>
             )}
         </div>
     );
 }
-}
 
-export default CurrentWeather
+export default CurrentWeather;

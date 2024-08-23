@@ -1,28 +1,12 @@
 import React, { useState } from "react";
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
-import { ColorModeContext, tokens } from "../theme";
+import { ColorModeContext, tokens } from "../../../theme";
 import InputBase from '@mui/material/InputBase';
 import axios from "axios"; 
 import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
 
 interface City {
-  city: string;
-  country: string;
-  countryCode: string;
-  id: number;
-  latitude: number;
-  longitude: number;
-  name: string;
-  population: number;
-  region: string;
-  regionCode: string;
-  regionWdId: string;
-  type: string;
-  wikiDataId: string;
-}
-
-interface Suggestion {
   city: string;
   country: string;
 }
@@ -33,7 +17,7 @@ function CitySearchBar() {
   const colorMode = useContext(ColorModeContext);
 
   const [city, setCity] = useState<string>(""); 
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]); 
+  const [suggestions, setSuggestions] = useState<City[]>([]); 
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { setSelectedCity, fetchWeatherData } = useWeatherWiseAppContext();
 
@@ -63,9 +47,7 @@ function CitySearchBar() {
     }
   };
 
-  const handleInputChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value; 
     setCity(value); 
 
@@ -97,7 +79,7 @@ function CitySearchBar() {
     }
   };
 
-  const handleSuggestionSelect = (suggestion: Suggestion) => {
+  const handleSuggestionSelect = (suggestion: City) => {
     const fullLocation = `${suggestion.city}, ${suggestion.country}`;
     setCity(fullLocation);
     setSelectedCity(fullLocation);
@@ -105,12 +87,24 @@ function CitySearchBar() {
   };
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2} position="relative">
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      p={0}
+      position="relative"
+      sx={{
+        maxWidth: "calc(100% - 350px)", // Prevent overflow beyond the available space
+      }}
+    >
       <Box
         display="flex"
+        flex="1"
         sx={{
           backgroundColor: colors.primary[400],
           borderRadius: "3px",
+          maxWidth: "100%", // Ensure the search bar doesn't exceed the available space
+          overflow: "hidden", // Prevent overflow
         }}
       >
         <InputBase
@@ -119,7 +113,7 @@ function CitySearchBar() {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           sx={{
-            width: 300,
+            width: "100%",
             backgroundColor: colors.primary[400],
             borderRadius: 1,
             padding: 1,
@@ -136,7 +130,7 @@ function CitySearchBar() {
           sx={{
             position: "absolute",
             top: "60px", 
-            width: "300px", 
+            width: "100%", 
             backgroundColor: "rgba(255, 255, 255, 0.8)", 
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             borderRadius: "3px",

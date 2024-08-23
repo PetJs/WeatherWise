@@ -1,0 +1,67 @@
+/* Light mode styles */
+.air-conditions {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.air-conditions h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.air-conditions-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.air-condition-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1 1 150px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.condition-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.condition-value {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Dark mode styles */
+.air-conditions.dark {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.air-conditions.dark .condition-label,
+.air-conditions.dark .condition-value {
+    color: #f0f0f0;
+}
+
+.air-condition-item.dark {
+    background-color: #444;
+    color: #f0f0f0;
+}
+
+.icon.dark {
+    color: #f0f0f0;
+}

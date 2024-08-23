@@ -128,6 +128,7 @@ function WeatherWiseAppProvider({ children }: WeatherWiseAppProviderProps) {
     setChanceOfRain(data.currentConditions.precipprob || 0);
     setSunset(data.currentConditions.sunset || 'N/A');
     console.log(data);
+    // Log the fetched weather data
   } catch (error) {
     console.error("Error fetching weather data: ", error);
   }
