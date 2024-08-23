@@ -1,4 +1,4 @@
-import Sidebar from '../../mainPage/Sidebar/Sidebar'
+import Sidebarr from '../../mainPage/Sidebar/Sidebarr'
 import WeatherPageMainContent from './WeatherPageMainContent'
 //import DailyForecast from './7DayForecast'
 
@@ -7,7 +7,6 @@ function WeatherPage() {
 
   return (
     <>
-      <Sidebar/>
       <WeatherPageMainContent/>
     </>
   );

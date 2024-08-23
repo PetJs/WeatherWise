@@ -3,7 +3,8 @@ import CitySearchBar from '../../../Components/CitySearchBar';
 import CurrentWeather from './CurrentWeather'; 
 import HourlyForecast from './HourlyForecast';
 //import AirConditions from './AirConditions';
-// import DailyForecast from './DailyForecast'; 
+import DailyForecast from './DailyForecast'; 
+import Sidebarr from '../../mainPage/Sidebar/Sidebarr';
 
 
 function MainContent() {
@@ -16,6 +17,7 @@ function MainContent() {
         //Air conditions
         //Daily Forecast to the right
         <div className="app">
+            <Sidebarr/>
             <div className='content'>
                 <CitySearchBar />
             </div>
@@ -27,7 +29,7 @@ function MainContent() {
                         {/* <AirConditions /> */}
                 </div>
                 <div className="right-column">
-                    {/* <DailyForecast/> */}
+                    <DailyForecast/>
                 </div>
             </div>
         </div>
