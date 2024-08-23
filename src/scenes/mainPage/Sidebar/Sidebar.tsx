@@ -13,6 +13,7 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
+      <h3>WeatherWise</h3>
       {sidebarItems.map((item, index) => (
         <SidebarItemContext.Provider key={index} value={item}>
           <SidebarItem />

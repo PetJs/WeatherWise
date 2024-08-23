@@ -92,7 +92,7 @@ function HourlyForecast() {
     }, [selectedCity]);
 
     return (
-        <div className="hourly-forecast">
+        <div className="hourly-forecast-section">
             <h2>Hourly Forecast</h2>
             {error ? (
                 <p>{error}</p>

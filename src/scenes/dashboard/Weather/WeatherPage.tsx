@@ -6,10 +6,10 @@ function WeatherPage() {
 
 
   return (
-    <>
+    <div className='weather-page'>
       <Sidebar/>
       <WeatherPageMainContent/>
-    </>
+    </div>
   );
 }
 

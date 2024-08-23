@@ -15,6 +15,8 @@ interface WeatherData {
     temp: number;
   }>;
   timezoneOffset: number;
+  latitude: number;
+  longitude: number
 }
 
 interface WeatherWiseAppContextInterface {
@@ -76,6 +78,8 @@ function WeatherWiseAppProvider({ children }: WeatherWiseAppProviderProps) {
     location: "Your City",
     dailyForecast: [],
     timezoneOffset: 0, //rep difference in seconds from UTC
+    latitude: 0,
+    longitude: 0
   });
   // Air Conditions States
   const [feelsLike, setFeelsLike] = useState<number>(0);
@@ -109,14 +113,16 @@ function WeatherWiseAppProvider({ children }: WeatherWiseAppProviderProps) {
     }
     
     const data = await response.json();
-    
+    console.log(data)
     setWeatherData({
       temperature: data.currentConditions.temp,
       chanceOfRain: data.currentConditions.precipprob,
       description: data.currentConditions.conditions,
       location: data.resolvedAddress,
       dailyForecast: data.days.slice(0, 7),
-      timezoneOffset: data.tzoffset || 0
+      timezoneOffset: data.tzoffset || 0,
+      latitude: data.latitude|| 0,
+      longitude: data.longitude|| 0
     });
     // Update air conditions
     setFeelsLike(data.currentConditions.feelsLike || 0);

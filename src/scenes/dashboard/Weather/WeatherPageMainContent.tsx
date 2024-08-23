@@ -15,21 +15,22 @@ function MainContent() {
         //Hourly Forecast
         //Air conditions
         //Daily Forecast to the right
-        <div className="weather-page">
-            <div className='search-bar'>
-                <CitySearchBar />
-            </div>
+        <div className="weather-page-main-content">
+            <div className="weather-page-center-column">
+                <div className='search-bar'>
+                    <CitySearchBar />
+                </div>
 
-            <div className="weather-container">
-                <div className="left-column">
-                    <CurrentWeather />
-                    <HourlyForecast />
+                <div className="weather-info-container">
+                        <CurrentWeather />
+                        <HourlyForecast />
                         <AirConditions />
                 </div>
-                <div className="right-column">
-                    <DailyForecast/>
-                </div>
             </div>
+            <div className="weather-page-right-column">
+                    <DailyForecast/>
+            </div>
+            
         </div>
     );
 }

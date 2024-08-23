@@ -19,7 +19,7 @@ function DailyForecast(){
     }));
 
     return(
-        <div className="daily-forecast">
+        <div className="daily-forecast-section">
             <h2>7-Day Forecast</h2>
             {dailyForecastData.length > 0 ? (
                 dailyForecastData.map((day, index) => (
