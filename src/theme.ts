@@ -1,6 +1,7 @@
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from '@mui/material/styles';
-import { dark } from "@mui/material/styles/createPalette";
+
+//import { dark } from "@mui/material/styles/createPalette";
 
 // Define the PaletteMode type
 type PaletteMode = 'light' | 'dark';
@@ -191,3 +192,4 @@ export const useMode = () => {
 
     return [theme, colorMode] as const;
 }
+

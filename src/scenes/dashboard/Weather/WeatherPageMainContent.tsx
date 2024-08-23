@@ -1,10 +1,12 @@
 import '/src/App.css';
-import CitySearchBar from '../../../Components/CitySearchBar';
+import CitySearchBar from './CitySearchBar';
 import CurrentWeather from './CurrentWeather'; 
 import HourlyForecast from './HourlyForecast';
 //import AirConditions from './AirConditions';
 import DailyForecast from './DailyForecast'; 
 import Sidebarr from '../../mainPage/Sidebar/Sidebarr';
+import AirConditions from './AirConditions';
+/* import DailyForecast from './DailyForecast';  */
 
 
 function MainContent() {
@@ -26,7 +28,7 @@ function MainContent() {
                 <div className="left-column">
                     <CurrentWeather />
                     <HourlyForecast />
-                        {/* <AirConditions /> */}
+                        <AirConditions />
                 </div>
                 <div className="right-column">
                     <DailyForecast/>
@@ -35,5 +37,6 @@ function MainContent() {
         </div>
     );
 }
+
 
 export default MainContent;

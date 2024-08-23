@@ -1,8 +1,10 @@
 import './App.css'
 import WeatherPage from './scenes/dashboard/Weather/WeatherPage'
-import WeatherWiseAppProvider from './Components/WeatherWiseAppProvider'
+
+import WeatherWiseAppProvider from './scenes/dashboard/Weather/WeatherWiseAppProvider'
 import { ColorModeContext, useMode } from './theme'
 import { CssBaseline, ThemeProvider } from '@mui/material';
+
 
 
 
