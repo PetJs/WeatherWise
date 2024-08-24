@@ -42,7 +42,7 @@ body,
     display: flex;
     flex-direction: column; /* Stack items vertically */
     margin: 0;
-    margin-left: 75px; /* Space for the sidebar */
+    margin-left: 300px; /* Space for the sidebar */
     padding: 0 ; /* Adjust padding as needed */
     width: calc(100% - 250px);
     overflow: hidden;

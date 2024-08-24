@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import SidebarItem from './SidebarItem';
 import { SidebarItemContext } from './SidebarContext';
-import { Box, IconButton, useTheme, Button } from '@mui/material';
+import { Box, IconButton, useTheme} from '@mui/material';
 import { tokens, ColorModeContext } from '../../../theme';
 
 
@@ -27,6 +27,8 @@ const Sidebarr = () => {
         height: '100vh', // Ensures the sidebar takes up the full height of the viewport
         padding: 0,
         margin: 0,
+        position:  'fixed',
+
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },

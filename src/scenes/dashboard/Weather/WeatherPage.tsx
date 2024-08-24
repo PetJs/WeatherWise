@@ -1,12 +1,8 @@
 import '/src/App.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CitySearchBar from './CitySearchBar';
 import CurrentWeather from './CurrentWeather'; 
 import HourlyForecast from './HourlyForecast';
 import AirConditions from './AirConditions';
-import Sidebarr from '../../mainPage/Sidebar/Sidebarr';
 import DailyForecast from './DailyForecast';
 
 function MainContent() {
