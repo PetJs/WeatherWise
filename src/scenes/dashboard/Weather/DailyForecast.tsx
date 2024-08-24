@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
-import "./dailyForecast.css";
+//import "./dailyForecast.css";
 
 // Icon mapping for weather conditions
 const conditionIcons: { [key: string]: string } = {

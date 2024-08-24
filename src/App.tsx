@@ -8,6 +8,7 @@ import CitiesPage from './scenes/dashboard/Weather/CitiesPage';
 import Sidebarr from './scenes/mainPage/Sidebar/Sidebarr';
 import MapPage from './scenes/dashboard/Weather/MapPage';
 
+
 function App() {
   const [theme, colorMode] = useMode();
 

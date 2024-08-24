@@ -2,8 +2,8 @@ import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTemperatureHigh, faSun, faTint, faWind, faEye, faTachometerAlt, faCloudShowersHeavy } from '@fortawesome/free-solid-svg-icons';
 import {  useTheme } from '@mui/material';
-import { tokens, } from '../../../theme';
-import './ac.css';
+//import { tokens, } from '../../../theme';
+//import './ac.css';
 
 type ConditionLabel = 'Feels Like' | 'UV Index' | 'Wind Speed' | 'Humidity' | 'Visibility' | 'Pressure' | 'Chance of Rain' | 'Sunset';
 
@@ -20,7 +20,7 @@ const conditionIcons: { [key in ConditionLabel]: any } = {
 
 function AirConditions() {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  //const colors = tokens(theme.palette.mode);
     const context = useWeatherWiseAppContext();
     if (!context) {
         return <div>Loading.....</div>;

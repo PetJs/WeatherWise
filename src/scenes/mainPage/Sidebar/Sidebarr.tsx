@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
-import SidebarItem from './SidebarItem';
+//import SidebarItem from './SidebarItem';
 import { SidebarItemContext } from './SidebarContext';
 import { Box, IconButton, useTheme} from '@mui/material';
 import { tokens, ColorModeContext } from '../../../theme';
@@ -11,7 +11,7 @@ const Sidebarr = () => {
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext); // Access the color mode context
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState('');
+  //const [active, setActive] = useState('');
   
   const sidebarItems = [
     { icon: 'cloud-sun', label: 'Weather', link: '/weather' },

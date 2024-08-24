@@ -1,17 +1,17 @@
 import React from 'react';
 import { useSidebarItemContext } from './SidebarContext';
+//import { Link } from 'react-router-dom';
 
 const SidebarItem: React.FC = () => {
-  const { icon, label, link } = useSidebarItemContext();
+  const { /* icon */ label, link } = useSidebarItemContext();
 
   return (
     <a href={link} className="sidebar-item">
       <div>
-        <i className={`fas fa-${icon}`}>{label}</i>
+        <i>{label}</i>
       </div>
     </a>
   );
 };
 
 export default SidebarItem;
-
