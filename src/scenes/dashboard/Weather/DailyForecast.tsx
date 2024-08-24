@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
-import "./dailyForecast.css";
+//import "./dailyForecast.css";
 
 // Icon mapping for weather conditions
 const conditionIcons: { [key: string]: string } = {
@@ -29,10 +29,6 @@ function DailyForecast() {
         temperature: dailyData.temp,
     }));
 
-<<<<<<< HEAD
-    return(
-        <div className="daily-forecast-section">
-=======
     useEffect(() => {
         const sidebarElement = document.querySelector('.sidebar') as HTMLElement;
         const dailyForecastElement = document.querySelector('.daily-forecast') as HTMLElement;
@@ -45,7 +41,6 @@ function DailyForecast() {
 
     return (
         <div className="daily-forecast">
->>>>>>> 07950edd71e34c87a6481692c29584756b24b24e
             <h2>7-Day Forecast</h2>
             {dailyForecastData.length > 0 ? (
                 dailyForecastData.map((day, index) => (

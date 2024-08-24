@@ -10,7 +10,7 @@ body,
     padding: 0; /* Remove default padding */
 }
 
-.app {
+.weather-page-main-content{
     display: flex;
     min-height: 100vh;
 }
@@ -36,14 +36,14 @@ body,
     margin: 0;
     padding: 0;
 }
-
+/* 
 .content {
     flex: 1;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column; /* Stack items vertically *
     margin: 0;
-    margin-left: 75px; /* Space for the sidebar */
-    padding: 0 ; /* Adjust padding as needed */
+    margin-left: 75px; /* Space for the sidebar *
+    padding: 0 ; /* Adjust padding as needed *
     width: calc(100% - 250px);
     overflow: hidden;
 }
@@ -58,27 +58,26 @@ body,
 
 .left-column, .right-column {
     flex: 1;
-    margin: 0 10px; /* Adjust spacing between columns */
+    margin: 0 10px; /* Adjust spacing between columns *
     overflow: hidden;
 }
 
 
 .left-column {
-    max-width: 70%; /* Adjust according to your design */
+    max-width: 70%; /* Adjust according to your design *
 }
 
 .right-column {
-    flex: 0 0 300px; /* Fixed width for the daily forecast */
-    background-color: #ecf0f1;
+    flex: 0 0 300px; /* Fixed width for the daily forecast *
     padding: 10px;
     border-radius: 5px;
-    position: sticky; /* Sticks the forecast to the top */
+    position: sticky; /* Sticks the forecast to the top *
     top: 0;
     max-width: 30%;
-}
+} */
 
 .daily-forecast {
-    background-color: #f0f0f0;
+
     padding: 10px;
     border-radius: 10px;
     width: 250px; /* Same width as the sidebar */

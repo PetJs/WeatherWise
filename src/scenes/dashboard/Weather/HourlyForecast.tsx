@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useWeatherWiseAppContext from "./useWeatherWiseAppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faCloudSun, faCloud, faCloudRain, faSnowflake, faThunderstorm, faSmog } from '@fortawesome/free-solid-svg-icons';
-import './HourlyForecast.css';  // Assuming you have a separate CSS file for styles
+//import './HourlyForecast.css';  
 
 interface HourlyForecast {
     time: string;
